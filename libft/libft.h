@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 22:20:02 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/17 14:48:40 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/05/17 19:41:30 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <string.h>
 
-# define BUFF_SIZE 10
+# define BUFF_SIZE 1
 
 typedef struct		s_list
 {
