@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdeltour <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/29 15:52:50 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/04/29 17:12:39 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/05/17 14:47:05 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
 static void		add_last(t_gnl **lst, t_gnl *elem)
 {

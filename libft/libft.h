@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 22:20:02 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/04/20 13:46:36 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/05/17 14:48:40 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,22 @@
 # include <stdlib.h>
 # include <string.h>
 
+# define BUFF_SIZE 10
+
 typedef struct		s_list
 {
 	void			*content;
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+typedef struct		s_gnl
+{
+	int				fd;
+	char			*line;
+	char			*temp;
+	struct s_gnl	*next;
+}					t_gnl;
 
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
@@ -92,5 +102,7 @@ void				ft_sortintegertable(int *tab, int size);
 int					ft_sqrt(int nb);
 int					ft_factorial(int nb);
 int					ft_power(int nb, int power);
+
+int					get_next_line(const int fd, char **line);
 
 #endif

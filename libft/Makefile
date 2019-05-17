@@ -6,7 +6,7 @@
 #    By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 22:30:48 by mdeltour          #+#    #+#              #
-#    Updated: 2019/05/15 16:00:09 by mdeltour         ###   ########.fr        #
+#    Updated: 2019/05/17 14:49:03 by mdeltour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,8 +83,7 @@ SRC_NAME = ft_atoi.c\
 		   ft_power.c\
 		   get_next_line.c
 
-INC_NAME = libft.h\
-		   get_next_line.h
+INC_NAME = libft.h
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
 SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
