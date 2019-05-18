@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   tool.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/02 18:32:17 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/18 17:50:37 by mdeltour         ###   ########.fr       */
+/*   Created: 2019/05/18 18:30:18 by mdeltour          #+#    #+#             */
+/*   Updated: 2019/05/18 18:44:47 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int	main(int argc, char **argv)
+t_flist		*ft_newlist(void)
 {
-	int	fd;
+	t_flist *list;
 
-	if (argc != 2)
+	if (!(list = (t_flist *)malloc(sizeof(t_flist))))
+		return (NULL);
+	list->tetri = 0;
+	list->first = NULL;
+	list->last = NULL;
+	return (list);
+}
+
+int			is_valid_str(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
 	{
-		ft_putstr_fd("usage: ./fillit source_file\n", 2);
-		return (1);
+		if ((str[i] != '#') && (str[i] != '.'))
+			return (-1);
+		i++;
 	}
-	fd = open(argv[1], O_RDONLY);
-	if (ft_fillit(fd) == 1)
-	{
-		close(fd);
-		ft_putstr_fd("error\n", 2);
-		return (1);
-	}
-	close(fd);
-	return (0);
+	return (i);
 }
