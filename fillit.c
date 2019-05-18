@@ -3,75 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clagier <clagier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 18:32:06 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/17 21:06:01 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/05/18 16:08:44 by clagier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		is_valid_str(char *str)
+t_flist			*newlist(void)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if ((str[i] != '#') && (str[i] != '.'))
-			return (-1);
-		i++;
-	}
-	return (i);
-}
-
-int		pre_check(int fd)
-{
-	char	*line;
-	int		ret;
-	int		j;
-	int		end;
-
-	line = NULL;
-	j = 0;
-	ret = 2;
-	end = 0;
+    t_flist *list;
 	
-	while (ret > 0)
-	{
-		while (j < 4 && ret > 0)
-		{
-			ret = get_next_line(fd, &line);
-			end++;
-			if (is_valid_str(line) != 4)
-				return (1);
-			j++;
-		}
-		if (ret > 0)
-		{
-			j = 0;
-			ret = get_next_line(fd, &line);
-			end++;
-			if (ret == 0)
-            	return (0);
-			if (line[0] != '\0')
-				return (1);
-		}
-	}
-	if ((end % 5) != 0)
-		return (1);
-	return (0);
+    if (!(list = malloc(sizeof(t_flist))))
+        return (list);
+    list->tetris = 0;
+    list->first = NULL;
+    list->last = NULL;
+    return (list);
 }
 
-/*int    is_file_ok(int fd)
+t_flist			*newtetris(t_flist *list, char lines[4][5])
 {
+    int j;
+
+    j = 0;
+    if (list != NULL)
+    {
+        t_tetris *newtetris;
+        if (!(newtetris = malloc(sizeof *newtetris)))
+            return (list);
+        while (j < 4)
+        {
+            ft_strcpy(newtetris->lines[j], lines[j]);
+            j++;
+        }
+        newtetris->next = NULL;
+        if (list->last == NULL)
+        {
+            newtetris->prev = NULL;
+            list->first = newtetris;
+            list->last = newtetris;
+        }
+        else
+        {
+            list->last->next = newtetris;
+            newtetris->prev = list->last;
+            list->last = newtetris;
+        }
+        list->tetris++;
+    }
+    return (list);
+}
+
+int			is_file_ok(int fd)
+{
+    t_flist  *list;   
     char *line;
+    char tetris[4][5];
     int     i;
     int        j = 0;
     int ret;
-
     ret = 1;
+
+    list = newlist();
     while (ret == 1)
     {
         while (j < 4 && ret > 0)
@@ -84,42 +80,24 @@ int		pre_check(int fd)
             {
                 return (1);
             }
-            ft_putstr(line);
-            ft_putchar('\n');
+            ft_strcpy(tetris[j], line);
             j++;
         }
+		list = newtetris(list, tetris);
         ret = get_next_line(fd, &line);
         if (ret == 0)
             return (0);
-        printf("cc\n");
-        ft_putchar(line[0]);
-        printf("cc\n");
         if (line[0] != '\0')
             return (1);
         j = 0;
     }
     return (0);
 }
-
-int        ft_fillit_clara(int fd)
+int			ft_fillit(int fd)
 {
-    int ok;
-
-    if (fd < 0)
-        return (1);
-
-    ok = is_file_ok(fd);
-
-   printf ("%d", ok);
-    return (ok);
-}
-*/
-
-int		ft_fillit(int fd)
-{
+	int ok;
 	if (fd < 0)
 		return (1);
-	if (pre_check(fd) != 0)
-		return (1);
-	return (0);
+	ok = is_file_ok(fd);
+	return (ok);
 }

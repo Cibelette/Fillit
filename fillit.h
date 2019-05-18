@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clagier <clagier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 18:34:39 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/17 20:00:54 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/05/18 15:48:14 by clagier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,20 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <fcntl.h>
+
+typedef struct		flist
+{
+	size_t			tetris;
+	struct tetris	*first;
+	struct tetris	*last;
+}					t_flist;
+
+typedef struct		tetris
+{
+	char			lines[4][4];
+	struct tetris	*prev;
+	struct tetris	*next;
+}					t_tetris;
 
 int		ft_fillit(int fd);
 int     ft_fillit_c(int fd);
