@@ -6,7 +6,7 @@
 /*   By: clagier <clagier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:46:14 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/20 14:02:39 by clagier          ###   ########.fr       */
+/*   Updated: 2019/05/20 14:21:44 by clagier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,13 @@ int	is_tetris_ok(t_flist list)
 	int			i;
 	int			j;
 	int			connexion;
+	int			diese;
 
 	current = list.first;
+	printf("Cc\n");
 	while (current != NULL)
 	{
+		diese = 0;
 		connexion = 0;
 		i = 0;
 		while (i < 4)
@@ -48,6 +51,7 @@ int	is_tetris_ok(t_flist list)
 			{
 				if (current->lines[i][j] == '#')
 				{
+					diese++;
 					connexion = connexion + check_connexion(current->lines,i ,j);
 				}
 				j++;
@@ -55,7 +59,9 @@ int	is_tetris_ok(t_flist list)
 			i++;
 		}
 		printf("connexion = %d\n", connexion);
-		if (!(connexion == 6 || connexion == 8))
+		if (!(connexion == 6 || connexion == 8 || connexion == 0))
+			return (1);
+		if(connexion == 0 && diese != 0)
 			return (1);
 		current = current->next;
 	}
