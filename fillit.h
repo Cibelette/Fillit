@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: clagier <clagier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 18:34:39 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/18 19:26:11 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/05/20 13:27:41 by clagier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct		s_flist
 
 typedef struct		s_tetris
 {
-	char			lines[4][4];
+	char			lines[4][5];
 	struct s_tetris	*prev;
 	struct s_tetris	*next;
 }					t_tetris;
@@ -35,5 +35,12 @@ typedef struct		s_tetris
 int					ft_fillit(int fd);
 t_flist				*ft_newlist(void);
 int					is_valid_str(char *str);
+t_tetris			*create_tetris(char lines[4][5]);
+t_flist				*newtetris(t_flist *list, char lines[4][5]);
+int					ft_free_error(void);
+int					is_file_ok(int fd);
+
+
+
 
 #endif
