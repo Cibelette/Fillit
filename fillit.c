@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:46:14 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/21 12:37:27 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/05/21 16:50:10 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int				is_file_ok(int fd)
 		while (j < 4 && ret > 0)
 		{
 			ret = get_next_line(fd, &line);
-			if (is_valid_str(line) != 4 || line[4] != '\0')
+			if (ret == 0 || is_valid_str(line) != 4 || line[4] != '\0')
 				return (ft_free_error());
 			ft_strcpy(tetris[j], line);
 			j++;
@@ -91,7 +91,7 @@ int				is_file_ok(int fd)
 				return (ft_free_error());
 			return (0);
 		}
-		if (line[0] != '\0')
+		if (line[0] != '\0' || ret == -1)
 			return (ft_free_error());
 		j = 0;
 	}
