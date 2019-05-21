@@ -6,7 +6,7 @@
 #    By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/02 18:20:04 by mdeltour          #+#    #+#              #
-#    Updated: 2019/05/21 13:21:11 by mdeltour         ###   ########.fr        #
+#    Updated: 2019/05/21 14:15:08 by mdeltour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,10 +46,12 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c $(INC_NAME)
 clean:
 	printf "\033[34m"
 	/bin/echo -n "[ CLEAN EN COURS ~ PLEASE WAIT ]"
+	make -C ./libft clean
 	rm -rf $(OBJ_PATH)
 	echo "\r\033[36m ~ CLEAN FINISH ~                  "
 
 fclean: clean
+	make -C ./libft fclean
 	rm -rf $(NAME)
 
 re: fclean all
