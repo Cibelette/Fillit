@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clagier <clagier@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 18:34:39 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/20 13:27:41 by clagier          ###   ########.fr       */
+/*   Updated: 2019/05/21 12:58:39 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ t_tetris			*create_tetris(char lines[4][5]);
 t_flist				*newtetris(t_flist *list, char lines[4][5]);
 int					ft_free_error(void);
 int					is_file_ok(int fd);
-
-
-
+int					is_tetris_ok(t_flist list);
+int					check_connexion(char lines[4][5], int i, int j);
+int					count_connexion(t_tetris *current);
 
 #endif

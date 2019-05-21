@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:30:18 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/18 18:44:47 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/05/21 12:32:37 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,4 @@ t_flist		*ft_newlist(void)
 	list->first = NULL;
 	list->last = NULL;
 	return (list);
-}
-
-int			is_valid_str(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if ((str[i] != '#') && (str[i] != '.'))
-			return (-1);
-		i++;
-	}
-	return (i);
 }

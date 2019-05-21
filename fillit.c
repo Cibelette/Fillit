@@ -3,70 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clagier <clagier@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:46:14 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/20 14:21:44 by clagier          ###   ########.fr       */
+/*   Updated: 2019/05/21 12:37:27 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
-
-int check_connexion(char lines[4][5], int i, int j)
-{
-	int connexions;
-
-	connexions = 0;
-	if (lines[i][j-1] == '#')
-		connexions++;
-	if (lines[i][j+1] == '#')
-		connexions++;
-	if (lines[i-1][j] == '#')
-		connexions++;
-	if (lines[i+1][j] == '#')
-		connexions++;
-	return(connexions);
-}
-
-int	is_tetris_ok(t_flist list)
-{
-	t_tetris	*current;
-	int			i;
-	int			j;
-	int			connexion;
-	int			diese;
-
-	current = list.first;
-	printf("Cc\n");
-	while (current != NULL)
-	{
-		diese = 0;
-		connexion = 0;
-		i = 0;
-		while (i < 4)
-		{
-			j = 0;
-			while(current->lines[i][j])
-			{
-				if (current->lines[i][j] == '#')
-				{
-					diese++;
-					connexion = connexion + check_connexion(current->lines,i ,j);
-				}
-				j++;
-			}
-			i++;
-		}
-		printf("connexion = %d\n", connexion);
-		if (!(connexion == 6 || connexion == 8 || connexion == 0))
-			return (1);
-		if(connexion == 0 && diese != 0)
-			return (1);
-		current = current->next;
-	}
-	return(0);
-}
 
 t_tetris		*create_tetris(char lines[4][5])
 {
@@ -141,9 +86,9 @@ int				is_file_ok(int fd)
 		list = newtetris(list, tetris);
 		ret = get_next_line(fd, &line);
 		if (ret == 0)
-		{	
+		{
 			if (is_tetris_ok(*list) != 0)
-				return (1);
+				return (ft_free_error());
 			return (0);
 		}
 		if (line[0] != '\0')
