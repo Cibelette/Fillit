@@ -3,40 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cibyl <cibyl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:46:14 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/21 16:50:10 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/05/22 15:39:10 by cibyl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
 
-t_tetris		*create_tetris(char lines[4][5])
+t_tetris		*create_tetris(char lines[4][5], char letter)
 {
 	t_tetris	*newtetris;
 	int			j;
+	int			i;
 
 	j = 0;
 	if (!(newtetris = (t_tetris *)malloc(sizeof(t_tetris))))
 		return (NULL);
 	while (j < 4)
 	{
+		i = 0;
 		ft_strcpy(newtetris->lines[j], lines[j]);
+		while (newtetris->lines[j][i])
+		{
+			if (newtetris->lines[j][i] == '#')
+				newtetris->lines[j][i] = letter;
+			i++;
+		}
+		ft_putstr(newtetris->lines[j]);
+		ft_putchar('\n');
+		
 		j++;
 	}
 	newtetris->next = NULL;
 	return (newtetris);
 }
 
-t_flist			*newtetris(t_flist *list, char lines[4][5])
+t_flist			*newtetris(t_flist *list, char lines[4][5], char letter)
 {
 	t_tetris	*newtetris;
 
 	if (list != NULL)
 	{
-		if (!(newtetris = create_tetris(lines)))
+		if (!(newtetris = create_tetris(lines, letter)))
 			return (NULL);
 		if (list->last == NULL)
 		{
@@ -67,7 +78,9 @@ int				is_file_ok(int fd)
 	char		tetris[4][5];
 	int			j;
 	int			ret;
+	char		letter;
 
+	letter = 'A';
 	j = 0;
 	ret = 2;
 	list = ft_newlist();
@@ -83,7 +96,8 @@ int				is_file_ok(int fd)
 		}
 		if (j != 4)
 			return (1);
-		list = newtetris(list, tetris);
+		list = newtetris(list, tetris, letter);
+		letter++;
 		ret = get_next_line(fd, &line);
 		if (ret == 0)
 		{
