@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tool.c                                             :+:      :+:    :+:   */
+/*   solve.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/18 18:30:18 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/26 15:53:13 by mdeltour         ###   ########.fr       */
+/*   Created: 2019/05/26 15:52:04 by mdeltour          #+#    #+#             */
+/*   Updated: 2019/05/26 15:52:34 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-t_flist		*ft_newlist(void)
+/*
+char	**put_tetris(char **board, char	line[4][5], int i, int j)
 {
-	t_flist *list;
+	int x;
+	int y;
 
-	if (!(list = (t_flist *)malloc(sizeof(t_flist))))
-		return (NULL);
-	list->tetri = 0;
-	list->first = NULL;
-	list->last = NULL;
-	return (list);
-}
-
-char	*ft_strnew_with_dot(size_t size)
-{
-	size_t		i;
-	char	*new_line;
-
-	i = 0;
-	if (!(new_line = (char *)malloc(sizeof(char) * (size + 5))))
-		return (NULL);
-	while (i < size + 4)
+	x = 0;
+	while (x < 4)
 	{
-		new_line[i] = '.';
-		i++;
+		y = 0;
+		while (y < 4)
+		{
+			if (line[x][y] != '.')
+				board[i + y][j + x] = line[x][y];
+			y++;
+		}
+		x++;
 	}
-	new_line[i] = 0;
-	return (new_line);
+	return (board);
+}
+*/
+
+
+int		ft_solve(t_flist *list, t_board *board)
+{	
+/*	board->tab = put_tetris(board->tab, list->first->line, i, j); */
+	return (0);
 }

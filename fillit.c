@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fillit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cibyl <cibyl@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:46:14 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/22 15:39:10 by cibyl            ###   ########.fr       */
+/*   Updated: 2019/05/26 15:46:52 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
 t_tetris		*create_tetris(char lines[4][5], char letter)
 {
@@ -71,9 +70,8 @@ int				ft_free_error(void)
 	return (1);
 }
 
-int				is_file_ok(int fd)
+int				is_file_ok(int fd, t_flist *list)
 {
-	t_flist		*list;
 	char		*line;
 	char		tetris[4][5];
 	int			j;
@@ -83,7 +81,6 @@ int				is_file_ok(int fd)
 	letter = 'A';
 	j = 0;
 	ret = 2;
-	list = ft_newlist();
 	while (ret > 0)
 	{
 		while (j < 4 && ret > 0)
@@ -114,9 +111,23 @@ int				is_file_ok(int fd)
 
 int				ft_fillit(int fd)
 {
+	t_flist		*list;
+	t_board		*board;
+
 	if (fd < 0)
 		return (1);
-	if (is_file_ok(fd) != 0)
+	if (!(list = ft_newlist()))
 		return (1);
+	if (is_file_ok(fd, list) != 0)
+		return (1);
+	board = NULL;
+	if (!(board = init_board(list, board)))
+		return (1);
+	while (ft_solve(list, board) == 1)
+		{
+			board->size += 1;
+			board->tab = extend_tab(board->tab, board->size);
+		}
+	print_board(board->tab, board->size);
 	return (0);
 }
