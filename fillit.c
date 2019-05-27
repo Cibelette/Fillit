@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:46:14 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/26 15:46:52 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/05/27 15:19:02 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_tetris		*create_tetris(char lines[4][5], char letter)
 		}
 		ft_putstr(newtetris->lines[j]);
 		ft_putchar('\n');
-		
 		j++;
 	}
 	newtetris->next = NULL;
