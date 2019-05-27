@@ -6,7 +6,7 @@
 #    By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/02 18:20:04 by mdeltour          #+#    #+#              #
-#    Updated: 2019/05/26 15:54:46 by mdeltour         ###   ########.fr        #
+#    Updated: 2019/05/27 15:17:13 by mdeltour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIB_PATH = ./
 SRC_NAME = main.c\
 		   fillit.c\
 		   tool.c\
-		   valid_map.c\
+		   valid_file.c\
 		   board.c\
 		   solve.c
 INC_NAME = fillit.h
