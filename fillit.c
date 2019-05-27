@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:46:14 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/27 16:30:44 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/05/27 17:10:29 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int				ft_fillit(int fd)
 	while ((solve = ft_solve(list, map)) == -1)
 		{
 			map->size += 1;
-			map->tab = init_map(list, map);
+			map = init_map(list, map);
 		}
 	print_map(map->tab, map->size);
 	return (0);

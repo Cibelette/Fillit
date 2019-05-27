@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:47:54 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/27 15:32:04 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/05/27 16:10:31 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,15 @@ char	**extend_tab(char **tab, size_t new_size)
 	return (newtab);
 }
 
-
 t_map	*init_map(t_flist *list, t_map *map)
 {
+	int		x;
+	int		y;
+
 	if (!(map = (t_map *)malloc(sizeof(t_map))))
 		return (NULL);
+	map->x = 0;
+	map->y = 0;	
 	map->size = size_of_map(list->tetri);
 	printf("%zu\n%zu\n", list->tetri, map->size);
 	map->tab = extend_tab(NULL, map->size);

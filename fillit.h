@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 18:34:39 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/27 15:31:33 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/05/27 16:23:40 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ void	free_map(char **map, int map_size);
 void	print_map(char **map, int map_size);
 int		size_of_map(int nb_piece);
 int		ft_solve(t_flist *list, t_map *map);
-char	**put_tetris(char **map, char	line[4][5], int i, int j);
+
+int place_next_block(t_tetris *current, int i, int j, t_map *map, char letter);
+int		place_block(t_tetris *current, t_map *map, char letter, int x, int y);
+int find_block_long(t_tetris *current, int i, int j);
+int find_block_lat(t_tetris *current, int i, int j);
+
+
 
 #endif
