@@ -6,13 +6,13 @@
 #    By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/02 18:20:04 by mdeltour          #+#    #+#              #
-#    Updated: 2019/05/27 15:17:13 by mdeltour         ###   ########.fr        #
+#    Updated: 2019/05/27 15:33:38 by mdeltour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fillit
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -g
 SRC_PATH = ./
 INC_PATH = ./
 OBJ_PATH = ./obj/

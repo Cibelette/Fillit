@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 18:34:39 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/26 15:49:18 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/05/27 15:31:33 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,13 @@ typedef struct		s_tetris
 	struct s_tetris	*next;
 }					t_tetris;
 
-typedef struct		s_board
+typedef struct		s_map
 {
 	char			**tab;
 	size_t			size;
-}					t_board;
+	int				x;
+	int				y;
+}					t_map;
 
 int					ft_fillit(int fd);
 t_flist				*ft_newlist(void);
@@ -51,13 +53,13 @@ int					is_tetris_ok(t_flist list);
 int					check_connexion(char lines[4][5], int i, int j, char letter);
 int					count_connexion(t_tetris *current, char letter);
 
-t_board	*init_board(t_flist *list, t_board *board);
+t_map	*init_map(t_flist *list, t_map *map);
 char	**extend_tab(char **tab, size_t new_size);
 char	*ft_strnew_with_dot(size_t size);
-void	free_board(char **board, int board_size);
-void	print_board(char **board, int board_size);
-int		size_of_board(int nb_piece);
-int		ft_solve(t_flist *list, t_board *board);
-char	**put_tetris(char **board, char	line[4][5], int i, int j);
+void	free_map(char **map, int map_size);
+void	print_map(char **map, int map_size);
+int		size_of_map(int nb_piece);
+int		ft_solve(t_flist *list, t_map *map);
+char	**put_tetris(char **map, char	line[4][5], int i, int j);
 
 #endif

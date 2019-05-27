@@ -6,41 +6,41 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:47:54 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/26 15:53:18 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/05/27 15:32:04 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	free_board(char **board, int board_size)
+void	free_map(char **map, int map_size)
 {
 	int		i;
 
 	i = 0;
-	while (i < board_size + 4)
+	while (i < map_size + 4)
 	{
-		free(board[i]);
-		board[i] = NULL;
+		free(map[i]);
+		map[i] = NULL;
 		i++;
 	}
-	free(board[i]);
-	board[i] = NULL;
-	free(board);
-	board = NULL;
+	free(map[i]);
+	map[i] = NULL;
+	free(map);
+	map = NULL;
 }
 
-void	print_board(char **board, int board_size)
+void	print_map(char **map, int map_size)
 {
 	int i;
 	int j;
 
 	i = 0;
-	while (i < board_size)
+	while (i < map_size)
 	{
 		j = 0;
-		while (j < board_size)
+		while (j < map_size)
 		{
-			ft_putchar(board[i][j]);
+			ft_putchar(map[i][j]);
 			j++;
 		}
 		ft_putchar('\n');
@@ -48,7 +48,7 @@ void	print_board(char **board, int board_size)
 	}
 }
 
-int		size_of_board(int nb_piece)
+int		size_of_map(int nb_piece)
 {
 	int	result;
 
@@ -64,7 +64,7 @@ char	**extend_tab(char **tab, size_t new_size)
 	size_t		i;
 
 	if (tab)
-		free_board(tab, new_size - 1);
+		free_map(tab, new_size - 1);
 	if (!(newtab = (char **)malloc(sizeof(char *) * (new_size + 5))))
 		return (NULL);
 	i = 0;
@@ -78,12 +78,12 @@ char	**extend_tab(char **tab, size_t new_size)
 }
 
 
-t_board	*init_board(t_flist *list, t_board *board)
+t_map	*init_map(t_flist *list, t_map *map)
 {
-	if (!(board = (t_board *)malloc(sizeof(t_board))))
+	if (!(map = (t_map *)malloc(sizeof(t_map))))
 		return (NULL);
-	board->size = size_of_board(list->tetri);
-	printf("%zu\n%zu\n", list->tetri, board->size);
-	board->tab = extend_tab(NULL, board->size);
-	return (board);
+	map->size = size_of_map(list->tetri);
+	printf("%zu\n%zu\n", list->tetri, map->size);
+	map->tab = extend_tab(NULL, map->size);
+	return (map);
 }

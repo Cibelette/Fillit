@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:46:14 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/27 15:19:02 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/05/27 15:33:32 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ int				is_file_ok(int fd, t_flist *list)
 int				ft_fillit(int fd)
 {
 	t_flist		*list;
-	t_board		*board;
+	t_map		*map;
+	int			solve;
 
 	if (fd < 0)
 		return (1);
@@ -119,14 +120,17 @@ int				ft_fillit(int fd)
 		return (1);
 	if (is_file_ok(fd, list) != 0)
 		return (1);
-	board = NULL;
-	if (!(board = init_board(list, board)))
+	map = NULL;
+	if (!(map = init_map(list, map)))
 		return (1);
-	while (ft_solve(list, board) == 1)
+	solve = 2;
+	while ((solve = ft_solve(list, map)) == 1)
 		{
-			board->size += 1;
-			board->tab = extend_tab(board->tab, board->size);
+			if (solve == -1)
+				return (1);
+			map->size += 1;
+			map->tab = extend_tab(map->tab, map->size);
 		}
-	print_board(board->tab, board->size);
+	print_map(map->tab, map->size);
 	return (0);
 }
