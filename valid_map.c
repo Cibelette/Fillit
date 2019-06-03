@@ -6,7 +6,7 @@
 /*   By: cibyl <cibyl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:33:03 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/22 16:18:39 by cibyl            ###   ########.fr       */
+/*   Updated: 2019/06/01 12:28:33 by cibyl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int				is_tetris_ok(t_flist list)
 	while (current != NULL)
 	{
 		connexion = count_connexion(current, letter);
-		printf("connexion = %d\n", connexion);
 		if (!(connexion == 6 || connexion == 8 || connexion == 0))
 			return (ft_free_error());
 		current = current->next;

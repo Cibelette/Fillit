@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:47:54 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/27 16:10:31 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/03 19:53:13 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_map(char **map, int map_size)
 	map = NULL;
 }
 
-void	print_map(char **map, int map_size)
+void	print_map(t_map *map, int map_size)
 {
 	int i;
 	int j;
@@ -40,7 +40,7 @@ void	print_map(char **map, int map_size)
 		j = 0;
 		while (j < map_size)
 		{
-			ft_putchar(map[i][j]);
+			ft_putchar(map->tab[i][j]);
 			j++;
 		}
 		ft_putchar('\n');
@@ -48,46 +48,48 @@ void	print_map(char **map, int map_size)
 	}
 }
 
-int		size_of_map(int nb_piece)
+t_map	*extend_tab(t_map *map, size_t new_size)
 {
-	int	result;
-
-	result  = 2;
-	while (result * result < nb_piece * 4)
-		result++;
-	return (result);
-}
-
-char	**extend_tab(char **tab, size_t new_size)
-{
-	char	**newtab;
 	size_t		i;
 
-	if (tab)
-		free_map(tab, new_size - 1);
-	if (!(newtab = (char **)malloc(sizeof(char *) * (new_size + 5))))
+	if (!(map->tab = (char **)malloc(sizeof(char *) * new_size)))
 		return (NULL);
 	i = 0;
-	while (i < new_size + 4)
+	while (i < new_size)
 	{
-		newtab[i] = ft_strnew_with_dot(new_size);
+		map->tab[i] = ft_strnew_with_dot(new_size);
 		i++;
 	}
-	newtab[i] = 0;
-	return (newtab);
+	ft_putstr("i = \n");
+	ft_putnbr(i);
+	ft_putchar('\n');
+	ft_putstr("la map dans extend 1\n");
+	print_map(map, map->size);
+	//map->tab[i] = 0;
+	ft_putstr("la map dans extend 2\n");
+	print_map(map, map->size);
+	return (map);
 }
 
-t_map	*init_map(t_flist *list, t_map *map)
+t_map	*init_map(t_map *map)
 {
 	int		x;
 	int		y;
+    size_t  size;
 
+    size = 2;
+    if (map)
+    {
+        size = map->size + 1;
+        free(map);
+    }
 	if (!(map = (t_map *)malloc(sizeof(t_map))))
 		return (NULL);
 	map->x = 0;
 	map->y = 0;	
-	map->size = size_of_map(list->tetri);
-	printf("%zu\n%zu\n", list->tetri, map->size);
-	map->tab = extend_tab(NULL, map->size);
+	map->size = size;
+	map = extend_tab(map, map->size);
+	ft_putstr("la map dans init apres extend\n");
+	print_map(map, map->size);
 	return (map);
 }

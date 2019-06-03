@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:46:14 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/27 17:10:29 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/03 15:15:57 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ t_tetris		*create_tetris(char lines[4][5], char letter)
 				newtetris->lines[j][i] = letter;
 			i++;
 		}
-		ft_putstr(newtetris->lines[j]);
-		ft_putchar('\n');
 		j++;
 	}
 	newtetris->next = NULL;
@@ -112,23 +110,29 @@ int				ft_fillit(int fd)
 {
 	t_flist		*list;
 	t_map		*map;
-	int			solve;
+	int			status;
 
 	if (fd < 0)
-		return (1);
+		return (ERROR);
 	if (!(list = ft_newlist()))
-		return (1);
+		return (ERROR);
 	if (is_file_ok(fd, list) != 0)
-		return (1);
+		return (ERROR);
 	map = NULL;
-	if (!(map = init_map(list, map)))
-		return (1);
-	solve = 2;
-	while ((solve = ft_solve(list, map)) == -1)
-		{
-			map->size += 1;
-			map = init_map(list, map);
-		}
-	print_map(map->tab, map->size);
-	return (0);
+	if (!(map = init_map(map)))
+		return (ERROR);
+	ft_putstr("la map apres first init\n");
+	print_map(map, map->size);
+	while ((status = ft_solve(list, map)) == ERROR )
+	{
+		map->size += 1;
+		if (!(map = init_map(map)))
+			return (ERROR);
+		map = extend_tab(map, map->size);
+		ft_putstr("la map dans fillit\n");
+		print_map(map, map->size);
+		
+	}
+	print_map(map, map->size);
+	return (OK);
 }

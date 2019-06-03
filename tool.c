@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tool.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cibyl <cibyl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:30:18 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/26 15:53:13 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/01 12:28:31 by cibyl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,4 @@ t_flist		*ft_newlist(void)
 	return (list);
 }
 
-char	*ft_strnew_with_dot(size_t size)
-{
-	size_t		i;
-	char	*new_line;
 
-	i = 0;
-	if (!(new_line = (char *)malloc(sizeof(char) * (size + 5))))
-		return (NULL);
-	while (i < size + 4)
-	{
-		new_line[i] = '.';
-		i++;
-	}
-	new_line[i] = 0;
-	return (new_line);
-}

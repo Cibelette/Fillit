@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 18:34:39 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/05/27 16:23:40 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/03 15:05:09 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <fcntl.h>
+# define END 0
+# define OK 1
+# define ERROR -1
 
 # include <stdio.h>
 
@@ -53,11 +56,11 @@ int					is_tetris_ok(t_flist list);
 int					check_connexion(char lines[4][5], int i, int j, char letter);
 int					count_connexion(t_tetris *current, char letter);
 
-t_map	*init_map(t_flist *list, t_map *map);
-char	**extend_tab(char **tab, size_t new_size);
+t_map	*init_map(t_map *map);
+t_map	*extend_tab(t_map *map, size_t new_size);
 char	*ft_strnew_with_dot(size_t size);
 void	free_map(char **map, int map_size);
-void	print_map(char **map, int map_size);
+void	print_map(t_map *map, int map_size);
 int		size_of_map(int nb_piece);
 int		ft_solve(t_flist *list, t_map *map);
 
