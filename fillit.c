@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:46:14 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/04 11:51:15 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/04 15:45:08 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int				ft_fillit(int fd)
 	status = 2;
 	while ((status = ft_solve(list, map)) == ERROR )
 	{
+		//return (ERROR);
 		ft_putstr("aggrandis la map\n");
 		map->size += 1;
 		if (!(map = init_map(map)))

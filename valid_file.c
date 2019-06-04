@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cibyl <cibyl@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:33:03 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/01 12:28:32 by cibyl            ###   ########.fr       */
+/*   Updated: 2019/06/04 16:17:28 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int				is_tetris_ok(t_flist list)
 	while (current != NULL)
 	{
 		connexion = count_connexion(current, letter);
-		if (!(connexion == 6 || connexion == 8 || connexion == 0))
+		if (!(connexion == 6 || connexion == 8))
 			return (ft_free_error());
 		current = current->next;
 		letter++;

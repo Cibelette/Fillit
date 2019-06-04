@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 15:46:12 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/04 11:56:20 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/04 16:36:26 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,31 @@ int		place_block(t_tetris *current, t_map *map, char letter, int x, int y)
 	int j;
 	int status;
 	
-	i = find_block_lat(current, 0, 0);
+	if ((i = find_block_lat(current, 0, 0)) == ERROR)
+		return (ERROR);
 	ft_putstr("i = ");
 	ft_putnbr(i);
-	j = find_block_long(current, 0, 0);
+	j = find_block_long(current, i, 0);
 	ft_putstr("j = ");
 	ft_putnbr(j);
+/*	while (x < 4 && map->tab[x][y] == '.')
+	{
+		while (y < 4 && map->tab[x][y] == '.')
+			y++;
+		if (map->tab[x][y] > 'A' && map->tab[x][y] < 'Z')
+			break;
+		x++;
+		y = 0;
+	}
+	if (map->tab[x][y] > 'A' && map->tab[x][y] < 'Z')
+	{
+		map->x = x + i;
+		map->y = y + i;
+		current->lines = tab[x][y];
+	}
+
+*/
+
 	while (map->tab[x] && map->tab[x][y] != '.')
 	{
 		printf("boucle1 x = %d y = %d str = %s\n", x, y, map->tab[0]);
@@ -73,6 +92,7 @@ int		place_block(t_tetris *current, t_map *map, char letter, int x, int y)
 		y = 0;
 		x++;
 	}
+	
 	if (map->tab[x][y] == '.')
 	{
 		ft_putstr("maptabde.\n");
@@ -107,35 +127,37 @@ int find_block_long(t_tetris *current, int i, int j)
 {
 	while (current->lines[i])
 	{
-		while (current->lines[i][j])
+		while (i < 4 && current->lines[i][j] == '.')
 		{
-			while (current->lines[i][j] == '.')
+			while (j < 4 && current->lines[i][j] == '.')
 				j++;
-			if (current->lines[i][j] > 'A' && current->lines[i][j] < 'Z')
+			if (current->lines[i][j] >= 'A' && current->lines[i][j] <= 'Z')
 				return (j);
-			j++;
+			i++;
+			j = 0;
 		}
-		j = 0;
-		i++;
+		if (current->lines[i][j] >= 'A' && current->lines[i][j] <= 'Z')
+			return (j);
 	}
-	// rajouter le cas dun tetris vide.
 	return (ERROR);
 }
+
 
 int find_block_lat(t_tetris *current, int i, int j)
 {
 	while (current->lines[i])
 	{
-		while (current->lines[i][j])
+		while (i < 4 && current->lines[i][j] == '.')
 		{
-			while (current->lines[i][j] == '.')
+			while (j < 4 && current->lines[i][j] == '.')
 				j++;
-			if (current->lines[i][j] > 'A' && current->lines[i][j] < 'Z')
+			if (current->lines[i][j] >= 'A' && current->lines[i][j] <= 'Z')
 				return (i);
-			j++;
+			i++;
+			j = 0;
 		}
-		j = 0;
-		i++;
+		if (current->lines[i][j] >= 'A' && current->lines[i][j] <= 'Z')
+			return (i);
 	}
 	return (ERROR);
 }
@@ -153,7 +175,6 @@ int		ft_solve(t_flist *list, t_map *map)
 	{
 		ft_putstr("statu OK ft_solve placons !\n");
 		status = place_block(current, map, letter, 0, 0);
-		//obscure cette partie, pourquoi passer au suivant et refaire nouvelle lettre? le tout en boucle, place next bloc fait pas deja ca?
 		current = current->next;
 		letter++;
 	}
