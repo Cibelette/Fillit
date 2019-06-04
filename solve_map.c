@@ -6,28 +6,11 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 15:46:12 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/03 20:17:29 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/04 11:56:20 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-char	*ft_strnew_with_dot(size_t size)
-{
-	size_t		i;
-	char	*new_line;
-
-	i = 0;
-	if (!(new_line = (char *)malloc(sizeof(char) * (size + 1))))
-		return (NULL);
-	while (i < size)
-	{
-		new_line[i] = '.';
-		i++;
-	}
-	new_line[i] = '\0';
-	return (new_line);
-}
 
 int place_next_block(t_tetris *current, int i, int j, t_map *map, char letter)
 {
@@ -38,17 +21,20 @@ int place_next_block(t_tetris *current, int i, int j, t_map *map, char letter)
 
 	tmp = map->tab;
 	block = 0;
-	ft_putstr("oookk1\n");
+	ft_putstr("rentre dans place next block\n");
 	while (block < 3)
 	{
 		inext = find_block_lat(current, i, j);
-		ft_putstr("oookkboucl1\n");
+		ft_putstr("\ninext = ");
+		ft_putnbr(inext);
 		jnext = find_block_long(current, i, j);
-		ft_putstr("oookkboucl2\n");
+		ft_putstr("\njnext = ");
+		ft_putnbr(jnext);
 		map->x += (inext - i);
 		map->y += (jnext - j);
 		if (map->x < 0 || map->y < 0 || tmp[map->x][map->y] != '.')
 		{
+			ft_putstr("attention error place next block\n");
 			return (ERROR);
 		}
 		tmp[map->x][map->y] = letter;
@@ -70,9 +56,11 @@ int		place_block(t_tetris *current, t_map *map, char letter, int x, int y)
 	int status;
 	
 	i = find_block_lat(current, 0, 0);
-	ft_putstr("ok1\n");
+	ft_putstr("i = ");
+	ft_putnbr(i);
 	j = find_block_long(current, 0, 0);
-	ft_putstr("ok2\n");
+	ft_putstr("j = ");
+	ft_putnbr(j);
 	while (map->tab[x] && map->tab[x][y] != '.')
 	{
 		printf("boucle1 x = %d y = %d str = %s\n", x, y, map->tab[0]);
@@ -90,6 +78,8 @@ int		place_block(t_tetris *current, t_map *map, char letter, int x, int y)
 		ft_putstr("maptabde.\n");
 		map->x = x;
 		map->y = y;
+		ft_putstr("avant placenextblock\n");
+		print_map(map, map->size);
 		status = place_next_block(current, i, j, map, letter);
 		ft_putstr("apresplacenextblock\n");
 		print_map(map, map->size);
@@ -102,10 +92,11 @@ int		place_block(t_tetris *current, t_map *map, char letter, int x, int y)
 		}
 		else if (status == ERROR)
 		{
-			if (map->tab[x+1] != NULL)
+			ft_putstr("error dans place block on essaye de replacer avec tab x+1 \n");
+			if (map->tab[x + 1] != NULL)
 				place_block(current, map, letter, x, y + 1);
 			//printf ("x = %d et y = %d\n", x, y);
-			//printf("map trop petite");
+			ft_putstr("map trop petite\n");
 			return (ERROR);
 		}
 	}
@@ -138,7 +129,7 @@ int find_block_lat(t_tetris *current, int i, int j)
 		while (current->lines[i][j])
 		{
 			while (current->lines[i][j] == '.')
-			j++;
+				j++;
 			if (current->lines[i][j] > 'A' && current->lines[i][j] < 'Z')
 				return (i);
 			j++;
@@ -160,15 +151,16 @@ int		ft_solve(t_flist *list, t_map *map)
 	status = OK;
 	while (status == OK)
 	{
+		ft_putstr("statu OK ft_solve placons !\n");
 		status = place_block(current, map, letter, 0, 0);
+		//obscure cette partie, pourquoi passer au suivant et refaire nouvelle lettre? le tout en boucle, place next bloc fait pas deja ca?
 		current = current->next;
 		letter++;
 	}
 	if (status == ERROR)
 	{
-		init_map(map);
+		ft_putstr("status error ft_solve on reviens dans principale \n");
 		print_map(map, map->size);
-		ft_solve(list, map);
 		return (ERROR);
 	}
 	return (END);

@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:47:54 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/03 19:53:13 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/04 10:50:14 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,7 @@ t_map	*extend_tab(t_map *map, size_t new_size)
 	ft_putstr("i = \n");
 	ft_putnbr(i);
 	ft_putchar('\n');
-	ft_putstr("la map dans extend 1\n");
-	print_map(map, map->size);
 	//map->tab[i] = 0;
-	ft_putstr("la map dans extend 2\n");
-	print_map(map, map->size);
 	return (map);
 }
 
@@ -89,7 +85,5 @@ t_map	*init_map(t_map *map)
 	map->y = 0;	
 	map->size = size;
 	map = extend_tab(map, map->size);
-	ft_putstr("la map dans init apres extend\n");
-	print_map(map, map->size);
 	return (map);
 }
