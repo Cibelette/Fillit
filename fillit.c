@@ -6,38 +6,76 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:46:14 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/04 15:45:08 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/06 12:18:29 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-t_tetris		*create_tetris(char lines[4][5], char letter)
+void		move_tetri(t_tetris	*newtetris, char letter, char arg)
+{
+	int		x;
+	int		y;
+
+	y = 0;
+	while (y < 4)
+	{
+		x = 0;
+		while (x < 4)
+		{
+			if (newtetris->lines[y][x] == '#' && arg == 'x')
+			{
+				newtetris->lines[y][x] = '.';
+				newtetris->lines[y][x - 1] = '#';
+			}
+			else if (newtetris->lines[y][x] == '#' && arg == 'y')
+			{
+				newtetris->lines[y][x] = '.';
+				newtetris->lines[y - 1][x] = '#';
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+t_tetris		*create_tetris(char lines[4][4], char letter)
 {
 	t_tetris	*newtetris;
-	int			j;
-	int			i;
+	int			x;
+	int			y;
 
-	j = 0;
 	if (!(newtetris = (t_tetris *)malloc(sizeof(t_tetris))))
 		return (NULL);
-	while (j < 4)
+	y = 0;
+	while (y < 4)
 	{
-		i = 0;
-		ft_strcpy(newtetris->lines[j], lines[j]);
-		while (newtetris->lines[j][i])
+		ft_strcpy(newtetris->lines[y], lines[y]);
+		y++;
+	}
+	while (newtetris->lines[0][0] != '#' && newtetris->lines[1][0] != '#'
+		&& newtetris->lines[2][0] != '#' && newtetris->lines[3][0] != '#')
+		move_tetri(newtetris, letter, 'x');
+	while (newtetris->lines[0][0] != '#' && newtetris->lines[0][1] != '#'
+		&& newtetris->lines[0][2] != '#' && newtetris->lines[0][3] != '#')
+		move_tetri(newtetris, letter, 'y');
+	y = 0;
+	while (y < 4)
+	{
+		x = 0;
+		while (x < 4)
 		{
-			if (newtetris->lines[j][i] == '#')
-				newtetris->lines[j][i] = letter;
-			i++;
+			if (newtetris->lines[y][x] == '#')
+				newtetris->lines[y][x] = letter;
+			x++;
 		}
-		j++;
+		y++;
 	}
 	newtetris->next = NULL;
 	return (newtetris);
 }
 
-t_flist			*newtetris(t_flist *list, char lines[4][5], char letter)
+t_flist			*newtetris(t_flist *list, char lines[4][4], char letter)
 {
 	t_tetris	*newtetris;
 
@@ -62,15 +100,10 @@ t_flist			*newtetris(t_flist *list, char lines[4][5], char letter)
 	return (list);
 }
 
-int				ft_free_error(void)
-{
-	return (1);
-}
-
 int				is_file_ok(int fd, t_flist *list)
 {
 	char		*line;
-	char		tetris[4][5];
+	char		tetris[4][4];
 	int			j;
 	int			ret;
 	char		letter;
@@ -83,7 +116,7 @@ int				is_file_ok(int fd, t_flist *list)
 		while (j < 4 && ret > 0)
 		{
 			ret = get_next_line(fd, &line);
-			if (ret == 0 || is_valid_str(line) != 4 || line[4] != '\0')
+			if (ret == 0 || is_valid_str(line) != 4)
 				return (ft_free_error());
 			ft_strcpy(tetris[j], line);
 			j++;
@@ -100,7 +133,7 @@ int				is_file_ok(int fd, t_flist *list)
 			return (0);
 		}
 		if (line[0] != '\0' || ret == -1)
-			return (ft_free_error());
+				return (ft_free_error());
 		j = 0;
 	}
 	return (0);
@@ -126,15 +159,14 @@ int				ft_fillit(int fd)
 	status = 2;
 	while ((status = ft_solve(list, map)) == ERROR )
 	{
-		//return (ERROR);
 		ft_putstr("aggrandis la map\n");
 		map->size += 1;
 		if (!(map = init_map(map)))
 			return (ERROR);
-		//map = extend_tab(map, map->size);
 		ft_putstr("reinitialise apres aggrandissement\n");
 		print_map(map, map->size);
 	}
+	ft_putstr("finis\n");
 	print_map(map, map->size);
 	return (END);
 }

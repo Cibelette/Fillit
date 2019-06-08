@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 18:34:39 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/03 15:05:09 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/08 11:57:00 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct		s_flist
 
 typedef struct		s_tetris
 {
-	char			lines[4][5];
+	char			lines[4][4];
 	struct s_tetris	*prev;
 	struct s_tetris	*next;
 }					t_tetris;
@@ -48,12 +48,12 @@ typedef struct		s_map
 int					ft_fillit(int fd);
 t_flist				*ft_newlist(void);
 int					is_valid_str(char *str);
-t_tetris			*create_tetris(char lines[4][5], char letter);
-t_flist				*newtetris(t_flist *list, char lines[4][5], char letter);
+t_tetris			*create_tetris(char lines[4][4], char letter);
+t_flist				*newtetris(t_flist *list, char lines[4][4], char letter);
 int					ft_free_error(void);
 int					is_file_ok(int fd, t_flist *list);
 int					is_tetris_ok(t_flist list);
-int					check_connexion(char lines[4][5], int i, int j, char letter);
+int					check_connexion(char lines[4][4], int i, int j, char letter);
 int					count_connexion(t_tetris *current, char letter);
 
 t_map	*init_map(t_map *map);
@@ -64,11 +64,10 @@ void	print_map(t_map *map, int map_size);
 int		size_of_map(int nb_piece);
 int		ft_solve(t_flist *list, t_map *map);
 
-int place_next_block(t_tetris *current, int i, int j, t_map *map, char letter);
-int		place_block(t_tetris *current, t_map *map, char letter, int x, int y);
-int find_block_long(t_tetris *current, int i, int j);
-int find_block_lat(t_tetris *current, int i, int j);
 
 
+void		move_tetri(t_tetris	*newtetris, char letter, char arg);
+int			print_tetris(t_tetris *map);
+void		print_double_char(char **tab, int size);
 
 #endif

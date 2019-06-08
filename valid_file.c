@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:33:03 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/04 16:17:28 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/05 16:45:38 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int				is_valid_str(char *str)
 	return (i);
 }
 
-int				check_connexion(char lines[4][5], int i, int j, char letter)
+int				check_connexion(char lines[4][4], int i, int j, char letter)
 {
 	int connexions;
 
@@ -55,7 +55,7 @@ int				count_connexion(t_tetris *current, char letter)
 	while (i < 4)
 	{
 		j = 0;
-		while (current->lines[i][j])
+		while (j < 4)
 		{
 			if (current->lines[i][j] == letter)
 			{
@@ -83,7 +83,7 @@ int				is_tetris_ok(t_flist list)
 	{
 		connexion = count_connexion(current, letter);
 		if (!(connexion == 6 || connexion == 8))
-			return (ft_free_error());
+				return (ft_free_error());
 		current = current->next;
 		letter++;
 	}

@@ -6,183 +6,141 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 15:46:12 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/04 16:36:26 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/08 17:20:43 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int place_next_block(t_tetris *current, int i, int j, t_map *map, char letter)
+static int	can_place(t_tetris *current, t_map *map)
 {
-	int block;
-	int inext;
-	int jnext;
-	char **tmp;
+	int x2;
+	int y2;
+	int	x;
+	int	y;
 
-	tmp = map->tab;
-	block = 0;
-	ft_putstr("rentre dans place next block\n");
-	while (block < 3)
+	x = map->x;
+	y = map->y;
+	ft_putstr("verif\n");
+	y2 = 0;
+	if (x > map->size || y > map->size)
+		return (ERROR);
+	while (y2 < map->size && y2 < y + 4)
 	{
-		inext = find_block_lat(current, i, j);
-		ft_putstr("\ninext = ");
-		ft_putnbr(inext);
-		jnext = find_block_long(current, i, j);
-		ft_putstr("\njnext = ");
-		ft_putnbr(jnext);
-		map->x += (inext - i);
-		map->y += (jnext - j);
-		if (map->x < 0 || map->y < 0 || tmp[map->x][map->y] != '.')
+		x2 = 0;
+		while (x2 < map->size && x2 < x + 4)
 		{
-			ft_putstr("attention error place next block\n");
-			return (ERROR);
+			if ((y + y2) < map->size && (x + x2) < map->size)
+			{
+				if (current->lines[y2][x2] >= 'A' && current->lines[y2][x2] <= 'Z' 
+					&& map->tab[y + y2][x + y2] >= 'A' && map->tab[y + y2][x + y2] <= 'Z')
+					return (ERROR);
+			}
+			x2++;
 		}
-		tmp[map->x][map->y] = letter;
-		i = inext;
-		j = jnext;
-		block++;
+		y2++;
 	}
-	map->tab = tmp;
-	free(tmp);
-	map->x = 0;
-	map->y = 0;
+	ft_putstr("verif ok\n");
 	return (OK);
 }
 
-int		place_block(t_tetris *current, t_map *map, char letter, int x, int y)
+static int	place_tetri(t_tetris *current, t_map *map)
 {
-	int i;
-	int j;
-	int status;
-	
-	if ((i = find_block_lat(current, 0, 0)) == ERROR)
+	int x2;
+	int y2;
+	int	x;
+	int	y;
+	int	count;
+
+	count = 0;
+	x = map->x;
+	y = map->y;
+	ft_putstr("place\n");
+	y2 = 0;
+	if (x > map->size || y > map->size)
 		return (ERROR);
-	ft_putstr("i = ");
-	ft_putnbr(i);
-	j = find_block_long(current, i, 0);
-	ft_putstr("j = ");
-	ft_putnbr(j);
-/*	while (x < 4 && map->tab[x][y] == '.')
+	while (y2 < map->size && y2 < y + 4)
 	{
-		while (y < 4 && map->tab[x][y] == '.')
-			y++;
-		if (map->tab[x][y] > 'A' && map->tab[x][y] < 'Z')
-			break;
-		x++;
-		y = 0;
-	}
-	if (map->tab[x][y] > 'A' && map->tab[x][y] < 'Z')
-	{
-		map->x = x + i;
-		map->y = y + i;
-		current->lines = tab[x][y];
-	}
-
-*/
-
-	while (map->tab[x] && map->tab[x][y] != '.')
-	{
-		printf("boucle1 x = %d y = %d str = %s\n", x, y, map->tab[0]);
-		print_map(map, map->size);
-		while (map->tab[x][y] && map->tab[x][y] != '.')
+		x2 = 0;
+		while (x2 < map->size && x2 < x + 4)
 		{
-			printf("boucle2\n");
-			y++;
+			if ((y + y2) < map->size && (x + x2) < map->size)
+			{
+				if (current->lines[y2][x2] >= 'A' && current->lines[y2][x2] <= 'Z' 
+					&& map->tab[y + y2][x + x2] >= 'A' && map->tab[y + y2][x + x2] <= 'Z')
+					return (ERROR);
+				if (map->tab[y + y2][x + x2] == '.' && current->lines[y2][x2] >= 'A' && current->lines[y2][x2] <= 'Z')
+				{
+					map->tab[y + y2][x + x2] = current->lines[y2][x2];
+					count++;
+					if (count == 4)
+						return (OK);
+				}
+			}
+			x2++;
 		}
-		y = 0;
-		x++;
+		y2++;
 	}
-	
-	if (map->tab[x][y] == '.')
+	if (count != 4)
 	{
-		ft_putstr("maptabde.\n");
-		map->x = x;
-		map->y = y;
-		ft_putstr("avant placenextblock\n");
-		print_map(map, map->size);
-		status = place_next_block(current, i, j, map, letter);
-		ft_putstr("apresplacenextblock\n");
-		print_map(map, map->size);
-		if ( status == OK)
-		{
-			map->tab[x][y] = letter;
-			if ((current = current->next) == NULL)
-				return (END);
-			return(OK);
-		}
-		else if (status == ERROR)
-		{
-			ft_putstr("error dans place block on essaye de replacer avec tab x+1 \n");
-			if (map->tab[x + 1] != NULL)
-				place_block(current, map, letter, x, y + 1);
-			//printf ("x = %d et y = %d\n", x, y);
-			ft_putstr("map trop petite\n");
-			return (ERROR);
-		}
+		ft_putstr("pas finis de le placer\n");
+		return (ERROR);
 	}
-	return (ERROR);
+	ft_putstr("place ok\n");
+	return (OK);
 }
 
-int find_block_long(t_tetris *current, int i, int j)
+static int	try_place_block(t_tetris *current, t_map *map)
 {
-	while (current->lines[i])
-	{
-		while (i < 4 && current->lines[i][j] == '.')
-		{
-			while (j < 4 && current->lines[i][j] == '.')
-				j++;
-			if (current->lines[i][j] >= 'A' && current->lines[i][j] <= 'Z')
-				return (j);
-			i++;
-			j = 0;
-		}
-		if (current->lines[i][j] >= 'A' && current->lines[i][j] <= 'Z')
-			return (j);
-	}
-	return (ERROR);
-}
+	int x2;
+	int y2;
+	int	x;
+	int	y;
 
-
-int find_block_lat(t_tetris *current, int i, int j)
-{
-	while (current->lines[i])
+	x = map->x;
+	y = map->y;
+	if (can_place(current, map) == ERROR)
 	{
-		while (i < 4 && current->lines[i][j] == '.')
-		{
-			while (j < 4 && current->lines[i][j] == '.')
-				j++;
-			if (current->lines[i][j] >= 'A' && current->lines[i][j] <= 'Z')
-				return (i);
-			i++;
-			j = 0;
-		}
-		if (current->lines[i][j] >= 'A' && current->lines[i][j] <= 'Z')
-			return (i);
+		ft_putstr("verifKOO\n");
+		return (ERROR);
 	}
-	return (ERROR);
+	if (place_tetri(current, map) == ERROR)
+	{
+		ft_putstr("placeKOO\n");
+		return (ERROR);
+	}
+	print_map(map, map->size);
+	return (OK);
 }
 
 int		ft_solve(t_flist *list, t_map *map)
 {
-	t_tetris	*current;
-	char		letter;
-	int 		status;
+	t_tetris *current;
+	int	status;
 
+	status = 2;
 	current = list->first;
-	letter = 'A';
-	status = OK;
-	while (status == OK)
+	map->y = 0;
+	while (map->y < map->size)
 	{
-		ft_putstr("statu OK ft_solve placons !\n");
-		status = place_block(current, map, letter, 0, 0);
-		current = current->next;
-		letter++;
+		map->x = 0;
+		while (map->x < map->size)
+		{
+			if (try_place_block(current, map) == OK && map->x < map->size)
+			{
+				if (current->next == NULL)
+					return (END);
+				if (current->next != NULL)
+				{
+					map->x = 0;
+					map->y = 0;
+					current = current->next;
+				}
+			}
+			map->x++;
+		}
+		map->y++;
 	}
-	if (status == ERROR)
-	{
-		ft_putstr("status error ft_solve on reviens dans principale \n");
-		print_map(map, map->size);
-		return (ERROR);
-	}
-	return (END);
+	ft_putstr("on doit aggrandir\n");
+	return (ERROR);
 }

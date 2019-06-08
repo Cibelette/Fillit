@@ -6,7 +6,7 @@
 #    By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/02 18:20:04 by mdeltour          #+#    #+#              #
-#    Updated: 2019/05/27 15:46:03 by mdeltour         ###   ########.fr        #
+#    Updated: 2019/06/08 11:34:29 by mdeltour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC_NAME = main.c\
 		   fillit.c\
 		   tool.c\
 		   valid_file.c\
-		   board.c\
+		   map.c\
 		   solve_map.c
 INC_NAME = fillit.h
 OBJ_NAME = $(SRC_NAME:.c=.o)
