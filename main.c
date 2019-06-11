@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 18:32:17 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/09 18:29:53 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/11 12:54:22 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int		ft_fillit(int fd)
 	if (is_file_ok(fd, list) != 0)
 		return (ERROR);
 	map = NULL;
-	if (!(map = init_map(map)))
+	if (!(map = init_map(map, list)))
 		return (ERROR);
 	status = 2;
 	while ((status = ft_solve(list->first, map)) == ERROR)
 	{
 		map->size += 1;
-		if (!(map = init_map(map)))
+		if (!(map = init_map(map, list)))
 			return (ERROR);
 	}
 	print_map(map, map->size);

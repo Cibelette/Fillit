@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:47:54 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/09 13:34:57 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/11 12:55:27 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,15 @@ t_map	*extend_tab(t_map *map, int new_size)
 	return (map);
 }
 
-t_map	*init_map(t_map *map)
+t_map	*init_map(t_map *map, t_flist *list)
 {
 	int		size;
+	int		nb;
 
+	nb = list->tetri;
 	size = 2;
+	while ((size = ft_sqrt(nb * 4)) == 0)
+		nb++;
 	if (map)
 	{
 		size = map->size;

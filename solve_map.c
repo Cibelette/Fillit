@@ -6,11 +6,12 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 15:46:12 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/09 15:18:42 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/11 15:39:20 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include <stdio.h>
 
 static int	can_place(t_tetris *curr, t_map *map, int x, int y)
 {
@@ -27,7 +28,7 @@ static int	can_place(t_tetris *curr, t_map *map, int x, int y)
 			&& (x + i) < map->size)
 		{
 			if (map->tab[y + j][x + i] >= 'A' && map->tab[y + j][x + i] <= 'Z'
-				&& curr->line[j][i] >= 'A' && curr->line[j][i] <= 'Z')
+					&& curr->line[j][i] >= 'A' && curr->line[j][i] <= 'Z')
 				return (ERROR);
 			if (map->tab[y + j][x + i] == '.' && curr->line[j][i] >= 'A'
 					&& curr->line[j][i] <= 'Z')
@@ -54,10 +55,10 @@ static int	place_tetri(t_tetris *curr, t_map *map, int x, int y)
 			&& (x + i) < map->size)
 		{
 			if (map->tab[y + j][x + i] >= 'A' && map->tab[y + j][x + i] <= 'Z'
-				&& curr->line[j][i] >= 'A' && curr->line[j][i] <= 'Z')
+					&& curr->line[j][i] >= 'A' && curr->line[j][i] <= 'Z')
 				return (ERROR);
 			if (map->tab[y + j][x + i] == '.' && curr->line[j][i] >= 'A'
-				&& curr->line[j][i] <= 'Z')
+					&& curr->line[j][i] <= 'Z')
 			{
 				map->tab[y + j][x + i] = curr->line[j][i];
 				count++;

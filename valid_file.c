@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:33:03 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/09 18:14:03 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/11 15:30:11 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int				is_valid_str(char *str)
 	return (i);
 }
 
-int				check_connexion(char line[4][4], int i, int j, char letter)
+int				check_connexion(char line[5][5], int i, int j, char letter)
 {
 	int connexions;
 
@@ -88,7 +88,7 @@ int				check_after_ret(int ret, t_flist *list, char *line)
 int				is_file_ok(int fd, t_flist *list)
 {
 	char		*line;
-	char		tetris[4][4];
+	char		tetris[5][5];
 	int			j;
 	int			ret;
 	char		letter;

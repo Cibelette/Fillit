@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:46:14 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/09 18:13:58 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/11 15:29:28 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void		move_tetri(t_tetris *newtetris, char arg)
 	}
 }
 
-t_tetris	*create_tetris(char line[4][4], char letter)
+t_tetris	*create_tetris(char line[5][5], char letter)
 {
 	t_tetris	*newtetris;
 	int			y;
@@ -72,6 +72,7 @@ t_tetris	*create_tetris(char line[4][4], char letter)
 	while (y < 4)
 	{
 		ft_strcpy(newtetris->line[y], line[y]);
+		newtetris->line[y][4] = '\0';
 		y++;
 	}
 	y = 0;
@@ -99,7 +100,7 @@ t_tetris	*create_tetris(char line[4][4], char letter)
 	return (newtetris);
 }
 
-t_flist		*newtetris(t_flist *list, char line[4][4], char letter)
+t_flist		*newtetris(t_flist *list, char line[5][5], char letter)
 {
 	t_tetris	*newtetris;
 

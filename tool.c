@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:30:18 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/09 13:23:46 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/11 15:31:11 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,31 @@ char		*ft_strncpy_without(const char *src, int len)
 		i++;
 	}
 	return (dst);
+}
+
+void			print_tetris(t_tetris *map)
+{
+	int 	y2;
+
+	y2 = 0;
+	while (y2 < 4)
+	{
+		ft_putstr(map->line[y2]);
+		ft_putchar('\n');
+		y2++;
+	}
+	ft_putchar('\n');
+}
+
+void		print_double_char(char **tab, int size)
+{
+	int		y;
+
+	y = 0;
+	while (y < size)
+	{
+		ft_putstr(tab[y]);
+		ft_putchar('\n');
+		y++;
+	}
 }
