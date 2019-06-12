@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 15:46:12 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/11 15:39:20 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/11 18:55:18 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ int			ft_solve(t_tetris *curr, t_map *map)
 	int		y;
 	char	**tmp;
 
-	tmp = (char **)malloc(sizeof(char *) * (map->size + 1));
+	if (!(tmp = (char **)malloc(sizeof(char *) * (map->size + 1))))
+		return (ERROR);
 	tmp[map->size] = NULL;
 	y = 0;
 	while (y < map->size)
@@ -97,16 +98,22 @@ int			ft_solve(t_tetris *curr, t_map *map)
 		x = 0;
 		while (x < map->size)
 		{
-			save_map(tmp, map->tab, map->size);
+			if (save_map(tmp, map->tab, map->size) == ERROR)
+				free(tmp);
 			if (try_place_block(curr, map, x, y) == OK && x < map->size)
 			{
 				if (curr->next == NULL || ft_solve(curr->next, map) == OK)
+				{
+					free(tmp);
 					return (OK);
-				save_map(map->tab, tmp, map->size);
+				}
+				if (save_map(map->tab, tmp, map->size) == ERROR)
+					return (ERROR);
 			}
 			x++;
 		}
 		y++;
 	}
+	free(tmp);
 	return (ERROR);
 }

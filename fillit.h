@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 18:34:39 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/11 15:27:07 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/11 19:27:13 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,17 @@ int					is_tetris_ok(t_flist list);
 void				assign_letter(char letter, t_tetris *newtetris);
 
 /*
+** tetriminos.c
+*/
+
+int					is_tetris_ok(t_flist list);
+
+/*
 ** valid_file.c
 */
 
 int					is_file_ok(int fd, t_flist *list);
 int					is_valid_str(char *str);
-t_flist				*ft_newlist(void);
 int					check_connexion(char line[5][5], int i, int j, char letter);
 int					count_connexion(t_tetris *curr, char letter);
 
@@ -93,7 +98,11 @@ char				*ft_strnew_with_dot(int size);
 char				*ft_strncpy_without(const char *src, int len);
 int					ft_free_error(void);
 
-void				print_tetris(t_tetris *map);
-void				print_double_char(char **tab, int size);
+/*
+** free.c
+*/
+
+void				ft_free_all(t_flist *list, t_map *map);
+void				free_map(t_map *map);
 
 #endif

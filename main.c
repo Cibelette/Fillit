@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 18:32:17 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/11 12:54:22 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/11 19:22:45 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		ft_fillit(int fd)
 			return (ERROR);
 	}
 	print_map(map, map->size);
+	ft_free_all(list, map);
 	return (END);
 }
 

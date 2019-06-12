@@ -6,40 +6,29 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:47:54 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/11 12:55:27 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/11 19:26:33 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-/*void	free_map(char **map, int map_size)
-{
-	int		i;
-
-	i = 0;
-	while (i < map_size + 4)
-	{
-		free(map[i]);
-		map[i] = NULL;
-		i++;
-	}
-	free(map[i]);
-	map[i] = NULL;
-	free(map);
-	map = NULL;
-}
-*/
 
 int		save_map(char **dest, char **srcs, int size)
 {
 	int	y;
 
 	y = 0;
+	/*if (dest != NULL)
+	{
+		free(dest);
+		dest = NULL;
+		if (!(dest = (char **)malloc(sizeof(char *) * (size + 1))))
+			return (ERROR);
+	}
+	*/
 	while (y < size)
 	{
-		/*if(dest[y] != NULL)
-		//	free(dest[y]);*/
-		dest[y] = ft_strncpy_without(srcs[y], size);
+		if (!(dest[y] = ft_strncpy_without(srcs[y], size)))
+			return (ERROR);
 		y++;
 	}
 	return (OK);
@@ -73,7 +62,8 @@ t_map	*extend_tab(t_map *map, int new_size)
 	i = 0;
 	while (i < new_size)
 	{
-		map->tab[i] = ft_strnew_with_dot(new_size);
+		if ((map->tab[i] = ft_strnew_with_dot(new_size)) == NULL)
+			free_map(map);
 		i++;
 	}
 	map->tab[i] = NULL;
@@ -92,7 +82,7 @@ t_map	*init_map(t_map *map, t_flist *list)
 	if (map)
 	{
 		size = map->size;
-		free(map);
+		free_map(map);
 	}
 	if (!(map = (t_map *)malloc(sizeof(t_map))))
 		return (NULL);

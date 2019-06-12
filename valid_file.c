@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:33:03 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/11 15:30:11 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/11 17:11:30 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int				count_connexion(t_tetris *curr, char letter)
 		return (-1);
 	return (connexion);
 }
-
 
 int				check_after_ret(int ret, t_flist *list, char *line)
 {

@@ -6,7 +6,7 @@
 #    By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/02 18:20:04 by mdeltour          #+#    #+#              #
-#    Updated: 2019/06/09 18:04:51 by mdeltour         ###   ########.fr        #
+#    Updated: 2019/06/11 19:23:28 by mdeltour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,12 @@ LIB_PATH = ./
 
 SRC_NAME = main.c\
 		   tetriminos.c\
+		   tetriminos2.c\
 		   valid_file.c\
 		   map.c\
 		   solve_map.c\
-		   tool.c
+		   tool.c\
+		   free.c
 INC_NAME = fillit.h
 OBJ_NAME = $(SRC_NAME:.c=.o)
 LIB_NAME = libft

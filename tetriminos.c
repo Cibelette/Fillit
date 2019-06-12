@@ -6,7 +6,7 @@
 /*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:46:14 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/11 15:29:28 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/11 17:10:10 by mdeltour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,34 @@ void		move_tetri(t_tetris *newtetris, char arg)
 	}
 }
 
+static int	ft_count_diese(t_tetris *newtetris)
+{
+	int		diese;
+	int		x;
+	int		y;
+
+	diese = 0;
+	y = 0;
+	while (y < 4)
+	{
+		x = 0;
+		while (x < 4)
+		{
+			if (newtetris->line[y][x] == '#')
+				diese++;
+			x++;
+		}
+		y++;
+	}
+	return (diese);
+}
+
 t_tetris	*create_tetris(char line[5][5], char letter)
 {
 	t_tetris	*newtetris;
 	int			y;
 	int			diese;
-	int			i;
-	
+
 	if (!(newtetris = (t_tetris *)malloc(sizeof(t_tetris))))
 		return (NULL);
 	y = 0;
@@ -75,19 +96,7 @@ t_tetris	*create_tetris(char line[5][5], char letter)
 		newtetris->line[y][4] = '\0';
 		y++;
 	}
-	y = 0;
-	while (y < 4)
-	{
-		i = 0;
-		while (i < 4)
-		{
-			if (newtetris->line[y][i] == '#')
-				diese++;
-			i++;
-		}
-		y++;
-	}
-	if (diese != 4)
+	if ((diese = ft_count_diese(newtetris)) != 4)
 		return (NULL);
 	while (newtetris->line[0][0] != '#' && newtetris->line[1][0] != '#'
 		&& newtetris->line[2][0] != '#' && newtetris->line[3][0] != '#')
@@ -123,23 +132,4 @@ t_flist		*newtetris(t_flist *list, char line[5][5], char letter)
 		list->tetri++;
 	}
 	return (list);
-}
-
-int			is_tetris_ok(t_flist list)
-{
-	t_tetris	*curr;
-	int			connexion;
-	char		letter;
-
-	letter = 'A';
-	curr = list.first;
-	while (curr != NULL)
-	{
-		connexion = count_connexion(curr, letter);
-		if (!(connexion == 6 || connexion == 8))
-			return (ft_free_error());
-		curr = curr->next;
-		letter++;
-	}
-	return (0);
 }
