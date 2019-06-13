@@ -12,7 +12,7 @@
 
 NAME = libft.a
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 SRC_PATH = ./
 INC_PATH = ./
 OBJ_PATH = ./obj/
