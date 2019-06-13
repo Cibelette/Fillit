@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+         #
+#    By: magnon <magnon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 22:30:48 by mdeltour          #+#    #+#              #
-#    Updated: 2019/05/17 14:45:02 by mdeltour         ###   ########.fr        #
+#    Updated: 2019/06/13 19:34:41 by magnon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 SRC_PATH = ./
 INC_PATH = ./
 OBJ_PATH = ./obj/

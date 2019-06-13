@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magnon <magnon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 18:32:17 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/11 19:22:45 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:43:41 by magnon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,25 @@ int		ft_fillit(int fd)
 
 	if (fd < 0)
 		return (ERROR);
-	if (!(list = ft_newlist()))
+	if ((list = ft_newlist()) == NULL)
+	{
+		free(list);
 		return (ERROR);
+	}
 	if (is_file_ok(fd, list) != 0)
-		return (ERROR);
+		return (free_error_list(list));
 	map = NULL;
 	if (!(map = init_map(map, list)))
-		return (ERROR);
+		return (free_error_all(list, map));
 	status = 2;
 	while ((status = ft_solve(list->first, map)) == ERROR)
 	{
 		map->size += 1;
 		if (!(map = init_map(map, list)))
-			return (ERROR);
+			return (free_error_all(list, map));
 	}
 	print_map(map, map->size);
-	ft_free_all(list, map);
+	free_all(list, map);
 	return (END);
 }
 

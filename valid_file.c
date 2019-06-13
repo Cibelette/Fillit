@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magnon <magnon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 12:33:03 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/11 17:11:30 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/13 19:37:44 by magnon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ int				check_after_ret(int ret, t_flist *list, char *line)
 	if (ret == 0)
 	{
 		if (is_tetris_ok(*list) != 0)
-			return (ft_free_error());
+			return (1);
 		return (0);
 	}
 	if (line[0] != '\0' || ret == -1)
-		return (ft_free_error());
+		return (1);
 	return (3);
 }
 
@@ -101,18 +101,18 @@ int				is_file_ok(int fd, t_flist *list)
 		{
 			ret = get_next_line(fd, &line);
 			if (ret == 0 || is_valid_str(line) != 4)
-				return (ft_free_error());
+				return (1);
 			ft_strcpy(tetris[j], line);
+			ft_memdel((void **)&line);
 			j++;
 		}
-		if (j != 4)
+		if (j != 4 || (list = newtetris(list, tetris, letter)) == NULL)
 			return (1);
-		if ((list = newtetris(list, tetris, letter)) == NULL)
-			return (ft_free_error());
 		letter++;
 		ret = get_next_line(fd, &line);
 		if ((j = check_after_ret(ret, list, line)) != 3)
 			return (j);
+		ft_memdel((void **)&line);
 		j = 0;
 	}
 	return (0);

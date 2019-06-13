@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tetriminos.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magnon <magnon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:46:14 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/11 17:10:10 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/13 19:39:30 by magnon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ t_flist		*newtetris(t_flist *list, char line[5][5], char letter)
 
 	if (list != NULL)
 	{
-		if (!(newtetris = create_tetris(line, letter)))
+		if ((newtetris = create_tetris(line, letter)) == NULL)
 			return (NULL);
 		if (list->last == NULL)
 		{

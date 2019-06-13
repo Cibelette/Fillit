@@ -3,35 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magnon <magnon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 15:47:54 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/11 19:26:33 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/13 19:27:25 by magnon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		save_map(char **dest, char **srcs, int size)
+t_map	*restaure_map(t_map *map, int size, t_tetris *curr)
 {
-	int	y;
+	int		y;
+	int		x;
+	char	letter;
 
+	letter = find_letter(curr);
 	y = 0;
-	/*if (dest != NULL)
-	{
-		free(dest);
-		dest = NULL;
-		if (!(dest = (char **)malloc(sizeof(char *) * (size + 1))))
-			return (ERROR);
-	}
-	*/
 	while (y < size)
 	{
-		if (!(dest[y] = ft_strncpy_without(srcs[y], size)))
-			return (ERROR);
+		x = 0;
+		while (x < size)
+		{
+			if (map->tab[y][x] == letter)
+				map->tab[y][x] = '.';
+			x++;
+		}
 		y++;
 	}
-	return (OK);
+	return (map);
 }
 
 void	print_map(t_map *map, int map_size)
@@ -86,8 +86,6 @@ t_map	*init_map(t_map *map, t_flist *list)
 	}
 	if (!(map = (t_map *)malloc(sizeof(t_map))))
 		return (NULL);
-	map->x = 0;
-	map->y = 0;
 	map->size = size;
 	map = extend_tab(map, map->size);
 	return (map);

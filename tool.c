@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tool.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdeltour <mdeltour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: magnon <magnon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/18 18:30:18 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/11 17:57:50 by mdeltour         ###   ########.fr       */
+/*   Updated: 2019/06/13 19:23:50 by magnon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,25 @@ t_flist		*ft_newlist(void)
 	return (list);
 }
 
+char		find_letter(t_tetris *curr)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < 4)
+	{
+		while (x < 4)
+		{
+			if (curr->line[y][x] >= 'A' && curr->line[y][x] <= 'Z')
+				return (curr->line[y][x]);
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
 char		*ft_strnew_with_dot(int size)
 {
 	int		i;
@@ -39,26 +58,4 @@ char		*ft_strnew_with_dot(int size)
 	}
 	new_line[i] = '\0';
 	return (new_line);
-}
-
-int			ft_free_error(void)
-{
-	return (1);
-}
-
-char		*ft_strncpy_without(const char *src, int len)
-{
-	char	*dst;
-	int		i;
-
-	i = 0;
-	if (!(dst = (char *)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	while (i < len)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
 }
