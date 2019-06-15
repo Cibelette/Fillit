@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: magnon <magnon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/02 18:32:17 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/14 21:03:35 by magnon           ###   ########.fr       */
+/*   Created: 2019/06/15 13:21:02 by mdeltour          #+#    #+#             */
+/*   Updated: 2019/06/15 18:35:33 by magnon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,25 @@ int		ft_fillit(int fd)
 	return (END);
 }
 
+int		check_zero(char *file)
+{
+	char	firstchar;
+	int		ret;
+	int		fd;
+
+	firstchar = '?';
+	fd = open(file, O_RDONLY);
+	ret = read(fd, &firstchar, 1);
+	if (ret > 0 && firstchar != '.' && firstchar != '#')
+	{
+		close(fd);
+		ft_putstr_fd("error\n", 1);
+		return(ERROR);
+	}
+	close(fd);
+	return(OK);
+}
+
 int		main(int argc, char **argv)
 {
 	int	fd;
@@ -48,13 +67,18 @@ int		main(int argc, char **argv)
 		ft_putstr_fd("usage: ./fillit source_file\n", 2);
 		return (ERROR);
 	}
-	fd = open(argv[1], O_RDONLY);
-	if (ft_fillit(fd) == ERROR)
+	if (check_zero(argv[1]) == OK)
 	{
+		fd = open(argv[1], O_RDONLY);
+		if (ft_fillit(fd) == ERROR)
+		{
+			close(fd);
+			ft_putstr_fd("error\n", 1);
+			return (ERROR);
+		}
 		close(fd);
-		ft_putstr_fd("error\n", 1);
-		return (ERROR);
 	}
-	close(fd);
+	else
+		return (ERROR);	
 	return (END);
 }

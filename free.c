@@ -5,12 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: magnon <magnon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/11 19:21:03 by mdeltour          #+#    #+#             */
-/*   Updated: 2019/06/15 12:02:41 by mdeltour         ###   ########.fr       */
+/*   Created: 2019/06/15 13:20:38 by mdeltour          #+#    #+#             */
+/*   Updated: 2019/06/15 17:53:32 by magnon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include <stdio.h>
 
 void		free_tetri_list(t_flist *list)
 {
@@ -58,13 +59,6 @@ void		free_map(t_map *map)
 
 t_tetris	*free_tetri(t_tetris *tetri)
 {
-	while (tetri->prev != NULL)
-	{
-		if (tetri->next != NULL)
-			free(tetri->next);
-		tetri = tetri->prev;
-	}
-	free(tetri->next);
 	free(tetri);
 	return (NULL);
 }
